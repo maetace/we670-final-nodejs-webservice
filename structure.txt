@@ -1,0 +1,31 @@
+.
+├── app.js
+├── middleware
+│   └── logger.js
+├── mock-users.js
+├── package-lock.json
+├── package.json
+├── public
+│   ├── images
+│   │   └── avatars
+│   │       ├── baronzemo.jpg
+│   │       ├── buckybarnes.jpg
+│   │       ├── default.jpg
+│   │       ├── ghost.jpg
+│   │       ├── justbob.jpg
+│   │       ├── melgold.jpg
+│   │       ├── redguardian.jpg
+│   │       ├── taskmaster.jpg
+│   │       ├── usagent.jpg
+│   │       ├── valentina.jpg
+│   │       └── yelena.jpg
+│   └── stylesheets
+│       └── style.css
+├── routes
+│   ├── index.js
+│   └── users.js
+├── structure.txt
+└── views
+    └── main.ejs
+
+8 directories, 21 files

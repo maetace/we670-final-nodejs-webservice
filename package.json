@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,8 +12,11 @@
   "description": "",
   "dependencies": {
     "body-parser": "^2.2.0",
+    "chalk": "^5.4.1",
     "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "mongodb": "^6.16.0",
     "mongoose": "^8.15.1"
   },
   "devDependencies": {
