@@ -1,102 +1,124 @@
 const express = require('express');
 const router = express.Router();
-
-// Import mock data
-const users = require('../mock-users');
+const User = require('../models/users'); // ✅ เชื่อมกับโมเดลผู้ใช้ใน MongoDB
 
 /**
  * GET /api/users
- * คืนค่ารายชื่อผู้ใช้ทั้งหมดในระบบ
+ * คืนค่าผู้ใช้ทั้งหมดจากฐานข้อมูล MongoDB
  */
-router.get('/', (req, res) => {
-    res.json(users);
+router.get('/', async (req, res) => {
+    try {
+        const users = await User.find(); // ดึง users ทั้งหมด
+        res.json(users);
+    } catch (err) {
+        console.error('[GET /api/users] Error:', err.message);
+        res.status(500).json({ message: 'ไม่สามารถดึงข้อมูลผู้ใช้ได้' });
+    }
 });
 
 /**
  * GET /api/users/:uid
- * คืนค่าข้อมูลผู้ใช้ตาม uid ที่ระบุ
+ * คืนค่าข้อมูลผู้ใช้ตาม uid (custom id)
  */
-router.get('/:uid', (req, res) => {
+router.get('/:uid', async (req, res) => {
     const uid = req.params.uid;
-    const user = users.find(u => u.uid === uid);
 
-    if (!user) {
-        return res.status(404).json({ message: 'ไม่พบข้อมูลที่ระบุ' });
+    try {
+        const user = await User.findOne({ uid }); // ค้นจาก uid (ไม่ใช่ _id)
+
+        if (!user) {
+            return res.status(404).json({ message: 'ไม่พบผู้ใช้ที่ระบุ' });
+        }
+
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: 'ไม่สามารถค้นหาผู้ใช้ได้' });
     }
-
-    res.json(user);
 });
 
 /**
  * POST /api/users
- * เพิ่มผู้ใช้ใหม่ลงในระบบ
+ * เพิ่มผู้ใช้ใหม่ลงฐานข้อมูล
  */
-router.post('/', (req, res) => {
-    const { username, avatar, email } = req.body;
+router.post('/', async (req, res) => {
+    const { uid, username, email, avatar } = req.body;
 
-    if (!username || !avatar || !email) {
-        return res.status(400).json({ message: 'กรุณาระบุข้อมูล username, avatar และ email ให้ครบถ้วน' });
+    if (!uid || !username || !email || !avatar) {
+        return res.status(400).json({ message: 'กรุณาระบุ uid, username, email และ avatar' });
     }
 
-    const newUser = {
-        uid: `U${(users.length + 1).toString().padStart(3, '0')}`,  // เช่น U011
-        username,
-        avatar,
-        email,
-        created: new Date().toISOString(),
-        updated: new Date().toISOString(),
-        status: 'active'
-    };
+    try {
+        const existing = await User.findOne({ uid });
 
-    users.push(newUser);
+        if (existing) {
+            return res.status(409).json({ message: 'UID นี้ถูกใช้ไปแล้ว' });
+        }
 
-    res.status(201).json(newUser);
+        const newUser = new User({
+            uid,
+            username,
+            email,
+            avatar,
+            status: 'active',
+            role: 'member',
+            createdAt: new Date(),
+            updatedAt: new Date()
+        });
+
+        await newUser.save();
+        res.status(201).json(newUser);
+    } catch (err) {
+        res.status(500).json({ message: 'ไม่สามารถเพิ่มผู้ใช้ได้' });
+    }
 });
 
 /**
  * PUT /api/users/:uid
- * อัปเดตข้อมูลผู้ใช้ตาม uid ที่ระบุ
+ * อัปเดตข้อมูลผู้ใช้ตาม uid
  */
-router.put('/:uid', (req, res) => {
+router.put('/:uid', async (req, res) => {
     const uid = req.params.uid;
-    const index = users.findIndex(u => u.uid === uid);
+    const { username, email, avatar } = req.body;
 
-    if (index === -1) {
-        return res.status(404).json({ message: 'ไม่พบข้อมูลที่ต้องการแก้ไข' });
+    if (!username || !email || !avatar) {
+        return res.status(400).json({ message: 'กรุณาระบุ username, email และ avatar' });
     }
 
-    const { username, avatar, email } = req.body;
+    try {
+        const updatedUser = await User.findOneAndUpdate(
+            { uid },
+            { username, email, avatar, updatedAt: new Date() },
+            { new: true } // คืนค่าใหม่หลังอัปเดต
+        );
 
-    if (!username || !avatar || !email) {
-        return res.status(400).json({ message: 'กรุณาระบุข้อมูล username, avatar และ email ให้ครบถ้วน' });
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'ไม่พบผู้ใช้ที่ต้องการอัปเดต' });
+        }
+
+        res.json(updatedUser);
+    } catch (err) {
+        res.status(500).json({ message: 'เกิดข้อผิดพลาดในการอัปเดตผู้ใช้' });
     }
-
-    users[index] = {
-        ...users[index],       // เก็บข้อมูลเดิมไว้ (เช่น uid, created, status)
-        username,
-        avatar,
-        email,
-        updated: new Date().toISOString()
-    };
-
-    res.json(users[index]);
 });
 
 /**
  * DELETE /api/users/:uid
- * ลบข้อมูลผู้ใช้จากระบบตาม uid ที่ระบุ
+ * ลบผู้ใช้จากฐานข้อมูลตาม uid
  */
-router.delete('/:uid', (req, res) => {
+router.delete('/:uid', async (req, res) => {
     const uid = req.params.uid;
-    const index = users.findIndex(u => u.uid === uid);
 
-    if (index === -1) {
-        return res.status(404).json({ message: 'ไม่พบข้อมูลที่ต้องการลบ' });
+    try {
+        const deleted = await User.findOneAndDelete({ uid });
+
+        if (!deleted) {
+            return res.status(404).json({ message: 'ไม่พบผู้ใช้ที่ต้องการลบ' });
+        }
+
+        res.json({ message: 'ลบผู้ใช้สำเร็จ', user: deleted });
+    } catch (err) {
+        res.status(500).json({ message: 'เกิดข้อผิดพลาดในการลบผู้ใช้' });
     }
-
-    users.splice(index, 1);
-
-    res.json({ message: 'ลบข้อมูลสำเร็จ', users });
 });
 
 module.exports = router;
