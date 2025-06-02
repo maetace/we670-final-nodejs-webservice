@@ -1,15 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
-// Import the users data
+// Import mock data
 const users = require('../mock-users');
 
-// GET /api/users
+/**
+ * GET /api/users
+ * คืนค่ารายชื่อผู้ใช้ทั้งหมดในระบบ
+ */
 router.get('/', (req, res) => {
     res.json(users);
 });
 
-// GET /api/users/:uid
+/**
+ * GET /api/users/:uid
+ * คืนค่าข้อมูลผู้ใช้ตาม uid ที่ระบุ
+ */
 router.get('/:uid', (req, res) => {
     const uid = req.params.uid;
     const user = users.find(u => u.uid === uid);
@@ -21,7 +27,10 @@ router.get('/:uid', (req, res) => {
     res.json(user);
 });
 
-// POST /api/users
+/**
+ * POST /api/users
+ * เพิ่มผู้ใช้ใหม่ลงในระบบ
+ */
 router.post('/', (req, res) => {
     const { username, avatar, email } = req.body;
 
@@ -30,7 +39,7 @@ router.post('/', (req, res) => {
     }
 
     const newUser = {
-        uid: `U${(users.length + 1).toString().padStart(3, '0')}`,
+        uid: `U${(users.length + 1).toString().padStart(3, '0')}`,  // เช่น U011
         username,
         avatar,
         email,
@@ -44,7 +53,10 @@ router.post('/', (req, res) => {
     res.status(201).json(newUser);
 });
 
-// PUT /api/users/:uid
+/**
+ * PUT /api/users/:uid
+ * อัปเดตข้อมูลผู้ใช้ตาม uid ที่ระบุ
+ */
 router.put('/:uid', (req, res) => {
     const uid = req.params.uid;
     const index = users.findIndex(u => u.uid === uid);
@@ -60,7 +72,7 @@ router.put('/:uid', (req, res) => {
     }
 
     users[index] = {
-        ...users[index],
+        ...users[index],       // เก็บข้อมูลเดิมไว้ (เช่น uid, created, status)
         username,
         avatar,
         email,
@@ -70,7 +82,10 @@ router.put('/:uid', (req, res) => {
     res.json(users[index]);
 });
 
-// DELETE /api/users/:uid
+/**
+ * DELETE /api/users/:uid
+ * ลบข้อมูลผู้ใช้จากระบบตาม uid ที่ระบุ
+ */
 router.delete('/:uid', (req, res) => {
     const uid = req.params.uid;
     const index = users.findIndex(u => u.uid === uid);

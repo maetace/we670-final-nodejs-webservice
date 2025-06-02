@@ -7,11 +7,10 @@ const users = [
         mobile: '+66123456001',
         avatar: '/images/avatars/yelena.jpg',
         fullname: 'Yelena Belova',
-        birthday: '1989-06-15',
+        birthday: new Date('1989-06-15'),
         gender: 'female',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'active'
+        status: 'active',
+        role: 'member'
     },
     {
         uid: 'U002',
@@ -21,11 +20,10 @@ const users = [
         mobile: '+66123456002',
         avatar: '/images/avatars/buckybarnes.jpg',
         fullname: 'James Barnes',
-        birthday: '1917-03-10',
+        birthday: new Date('1917-03-10'),
         gender: 'male',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'active'
+        status: 'active',
+        role: 'member'
     },
     {
         uid: 'U003',
@@ -35,11 +33,10 @@ const users = [
         mobile: '+66123456003',
         avatar: '/images/avatars/redguardian.jpg',
         fullname: 'Alexei Shostakov',
-        birthday: '1967-11-22',
+        birthday: new Date('1967-11-22'),
         gender: 'male',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'active'
+        status: 'active',
+        role: 'member'
     },
     {
         uid: 'U004',
@@ -49,11 +46,10 @@ const users = [
         mobile: '+66123456004',
         avatar: '/images/avatars/usagent.jpg',
         fullname: 'John Walker',
-        birthday: '1986-07-10',
+        birthday: new Date('1986-07-10'),
         gender: 'male',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'active'
+        status: 'active',
+        role: 'member'
     },
     {
         uid: 'U005',
@@ -63,11 +59,10 @@ const users = [
         mobile: '+66123456005',
         avatar: '/images/avatars/ghost.jpg',
         fullname: 'Ava Starr',
-        birthday: '1988-08-24',
+        birthday: new Date('1988-08-24'),
         gender: 'female',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'active'
+        status: 'active',
+        role: 'member'
     },
     {
         uid: 'U006',
@@ -77,11 +72,10 @@ const users = [
         mobile: '+66123456006',
         avatar: '/images/avatars/taskmaster.jpg',
         fullname: 'Antonia Dreykov',
-        birthday: '1996-05-19',
+        birthday: new Date('1996-05-19'),
         gender: 'female',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'deleted'
+        status: 'deleted',
+        role: 'member'
     },
     {
         uid: 'U007',
@@ -91,11 +85,10 @@ const users = [
         mobile: '+66123456007',
         avatar: '/images/avatars/justbob.jpg',
         fullname: 'Bob Reynolds',
-        birthday: '1987-04-10',
+        birthday: new Date('1987-04-10'),
         gender: 'male',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'pending'
+        status: 'pending',
+        role: 'member'
     },
     {
         uid: 'U008',
@@ -105,11 +98,10 @@ const users = [
         mobile: '+66123456008',
         avatar: '/images/avatars/valentina.jpg',
         fullname: 'Valentina Allegra de Fontaine',
-        birthday: '1971-12-19',
+        birthday: new Date('1971-12-19'),
         gender: 'female',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'active'
+        status: 'active',
+        role: 'member'
     },
     {
         uid: 'U009',
@@ -119,11 +111,10 @@ const users = [
         mobile: '+66123456009',
         avatar: '/images/avatars/melgold.jpg',
         fullname: 'Melissa Gold',
-        birthday: '1994-10-28',
+        birthday: new Date('1994-10-28'),
         gender: 'female',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'inactive'
+        status: 'inactive',
+        role: 'member'
     },
     {
         uid: 'U010',
@@ -133,11 +124,10 @@ const users = [
         mobile: '+66123456010',
         avatar: '/images/avatars/baronzemo.jpg',
         fullname: 'Helmut Zemo',
-        birthday: '1978-09-03',
+        birthday: new Date('1978-09-03'),
         gender: 'male',
-        created: '2025-05-25T10:00:00',
-        updated: '2025-05-25T10:00:00',
-        status: 'banned'
+        status: 'active',
+        role: 'admin'
     }
 ];
 

@@ -3,6 +3,8 @@
 ├── middleware
 │   └── logger.js
 ├── mock-users.js
+├── models
+│   └── users.js
 ├── package-lock.json
 ├── package.json
 ├── public
@@ -24,8 +26,11 @@
 ├── routes
 │   ├── index.js
 │   └── users.js
+├── scripts
+│   ├── insert-admin.js
+│   └── seed-users.js
 ├── structure.txt
 └── views
     └── main.ejs
 
-8 directories, 21 files
+10 directories, 24 files
