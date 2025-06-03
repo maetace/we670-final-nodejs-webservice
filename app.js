@@ -36,7 +36,8 @@ mongoose.connect(process.env.MONGO_URI)
         console.log('[MongoDB] Connected successfully');
 
         // เริ่มต้น Web Server (เฉพาะเมื่อ DB เชื่อมสำเร็จ)
-        app.listen(port, '127.0.0.1', () => {
+        // app.listen(port, '127.0.0.1', () => {
+        app.listen(port, () => {
             console.log(`Listening to request on port ${port}`);
         });
     })
