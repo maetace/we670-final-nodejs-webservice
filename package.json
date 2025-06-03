@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
+    "mock": "node mock/mock-data-script.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,7 +13,6 @@
   "description": "",
   "dependencies": {
     "body-parser": "^2.2.0",
-    "chalk": "^4.1.2",
     "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",

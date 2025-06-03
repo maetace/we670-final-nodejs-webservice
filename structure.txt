@@ -2,7 +2,9 @@
 ├── app.js
 ├── middleware
 │   └── logger.js
-├── mock-users.js
+├── mock
+│   ├── mock-data-script.js
+│   └── mock-data.js
 ├── models
 │   └── users.js
 ├── package-lock.json
@@ -15,6 +17,7 @@
 │   │       ├── default.jpg
 │   │       ├── ghost.jpg
 │   │       ├── justbob.jpg
+│   │       ├── justme.jpg
 │   │       ├── melgold.jpg
 │   │       ├── redguardian.jpg
 │   │       ├── taskmaster.jpg
@@ -26,9 +29,6 @@
 ├── routes
 │   ├── index.js
 │   └── users.js
-├── scripts
-│   ├── insert-admin.js
-│   └── seed-users.js
 ├── structure.txt
 └── views
     └── main.ejs
