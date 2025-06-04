@@ -1,5 +1,7 @@
 .
 ├── app.js
+├── docs
+│   └── swagger.js
 ├── middleware
 │   └── logger.js
 ├── mock
@@ -10,22 +12,9 @@
 ├── package-lock.json
 ├── package.json
 ├── public
-│   ├── images
-│   │   └── avatars
-│   │       ├── baronzemo.jpg
-│   │       ├── buckybarnes.jpg
-│   │       ├── default.jpg
-│   │       ├── ghost.jpg
-│   │       ├── justbob.jpg
-│   │       ├── justme.jpg
-│   │       ├── melgold.jpg
-│   │       ├── redguardian.jpg
-│   │       ├── taskmaster.jpg
-│   │       ├── usagent.jpg
-│   │       ├── valentina.jpg
-│   │       └── yelena.jpg
 │   └── stylesheets
 │       └── style.css
+├── README.md
 ├── routes
 │   ├── index.js
 │   └── users.js
@@ -33,4 +22,4 @@
 └── views
     └── main.ejs
 
-10 directories, 24 files
+9 directories, 14 files

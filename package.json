@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "mock": "node mock/mock-data-script.js",
+    "seed": "node mock/mock-data-script.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,11 +13,14 @@
   "description": "",
   "dependencies": {
     "body-parser": "^2.2.0",
-    "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "mongodb": "^6.16.0",
-    "mongoose": "^8.15.1"
+    "mongoose": "^8.15.1",
+    "dotenv": "^16.5.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 // เรียกใช้ model ที่เราสร้างไว้สำหรับ users
-const User = require('./models/user');
+const User = require('../models/users');
 
 // เรียกใช้ mock data ที่เตรียมไว้ ซึ่งต้อง export เป็น array ของ object
 const mockUsers = require('./mock-data');
