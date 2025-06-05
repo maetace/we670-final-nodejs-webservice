@@ -9,15 +9,45 @@ const User = require('../models/users');
  * @swagger
  * /api/users:
  *   get:
- *     summary: ดึงข้อมูลผู้ใช้ทั้งหมด
+ *     summary: ดึงข้อมูลผู้ใช้ทั้งหมด หรือกรองตาม query เช่น role, status, gender, username
  *     tags: [Users]
+ *     parameters:
+ *       - in: query
+ *         name: role
+ *         schema:
+ *           type: string
+ *         description: กรองผู้ใช้ตาม role
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *         description: กรองผู้ใช้ตามสถานะ
+ *       - in: query
+ *         name: gender
+ *         schema:
+ *           type: string
+ *         description: กรองผู้ใช้ตามเพศ
+ *       - in: query
+ *         name: username
+ *         schema:
+ *           type: string
+ *         description: ค้นหา username แบบบางส่วน ไม่สนตัวพิมพ์เล็กใหญ่
  *     responses:
  *       200:
- *         description: ส่งข้อมูลผู้ใช้ทั้งหมดในระบบ
+ *         description: ส่งข้อมูลผู้ใช้ตามเงื่อนไขที่ระบุ หรือทั้งหมดถ้าไม่มีเงื่อนไข
  */
 router.get('/', async (req, res) => {
+    // เตรียม object สำหรับกรองข้อมูล
+    const filter = {};
+
+    // ตรวจสอบและเพิ่มเงื่อนไขจาก query string ถ้ามี
+    if (req.query.role) filter.role = req.query.role;
+    if (req.query.status) filter.status = req.query.status;
+    if (req.query.gender) filter.gender = req.query.gender;
+    if (req.query.username) filter.username = { $regex: req.query.username, $options: 'i' };
+
     try {
-        const users = await User.find();
+        const users = await User.find(filter); // ใช้ filter แทน find ทั้งหมด
         res.json(users);
     } catch (err) {
         console.error('[GET /api/users] Error:', err.message);
